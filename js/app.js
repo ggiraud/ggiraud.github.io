@@ -57,13 +57,13 @@ document.addEventListener('DOMContentLoaded', function(e) {
 
     var balls = [];
 
-    for (var i = 0; i < 100; i++) {
+    for (var i = 0; i < 10; i++) {
         balls[i] = new Ball(10, "red");
         balls[i].insert();
     }
 
     function draw() {
-        for (var i = 0; i < 100; i++) {
+        for (var i = 0; i < 10; i++) {
             balls[i].move();
             balls[i].display();
         }
