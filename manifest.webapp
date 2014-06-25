@@ -1,0 +1,12 @@
+{
+	"name": "angryParrot",
+	"description": "Annoying sound repeater",
+	"developer": {
+		"name": "Guillaume Giraud"
+	},
+	"default_locale": "en",
+	"icons": {
+		"128": "/img/icons/icon-128.png",
+		"60": "/img/icons/icon-60.png"
+	}
+}
