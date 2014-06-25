@@ -47,17 +47,11 @@ Ball.prototype.move = function() {
 };
 
 Ball.prototype.display = function() {
-    this.dom.style.webkitTransform = "translateX(" + (this.x - this.radius) + "px) translateZ(0)";
-    this.dom.style.MozTransform = "translateX(" + (this.x - this.radius) + "px) translateZ(0)";
-    this.dom.style.msTransform = "translateX(" + (this.x - this.radius) + "px) translateZ(0)";
-    this.dom.style.OTransform = "translateX(" + (this.x - this.radius) + "px) translateZ(0)";
-    this.dom.style.transform = "translateX(" + (this.x - this.radius) + "px) translateZ(0)";
-
-    this.dom.style.webkitTransform = "translateY(" + (this.y - this.radius) + "px) translateZ(0)";
-    this.dom.style.MozTransform = "translateY(" + (this.y - this.radius) + "px) translateZ(0)";
-    this.dom.style.msTransform = "translateY(" + (this.y - this.radius) + "px) translateZ(0)";
-    this.dom.style.OTransform = "translateY(" + (this.y - this.radius) + "px) translateZ(0)";
-    this.dom.style.transform = "translateY(" + (this.y - this.radius) + "px) translateZ(0)";
+    this.dom.style.webkitTransform = "translateX(" + (this.x - this.radius) + "px) translateY(" + (this.y - this.radius) + "px) translateZ(0)";
+    this.dom.style.MozTransform = "translateX(" + (this.x - this.radius) + "px) translateY(" + (this.y - this.radius) + "px) translateZ(0)";
+    this.dom.style.msTransform = "translateX(" + (this.x - this.radius) + "px) translateY(" + (this.y - this.radius) + "px) translateZ(0)";
+    this.dom.style.OTransform = "translateX(" + (this.x - this.radius) + "px) translateY(" + (this.y - this.radius) + "px) translateZ(0)";
+    this.dom.style.transform = "translateX(" + (this.x - this.radius) + "px) translateY(" + (this.y - this.radius) + "px) translateZ(0)";
 };
 
 
