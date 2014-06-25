@@ -15,7 +15,7 @@ function Ball(radius, color) {
 
 Ball.prototype.insert = function() {
     this.dom = document.createElement('DIV');
-    this.dom.id = "ball";
+    this.dom.className = "ball";
     this.dom.style.backgroundColor = this.color;
     this.dom.style.width = this.dom.style.height = (this.radius * 2) + 'px';
     this.dom.style.borderRadius = this.radius + "px";

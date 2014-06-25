@@ -1,5 +1,5 @@
 /* line 3, ../scss/app.scss */
-#ball {
+.ball {
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
   -ms-transform: translateZ(0);
