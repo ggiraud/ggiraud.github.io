@@ -19,7 +19,7 @@ Ball.prototype.insert = function() {
     this.dom.style.backgroundColor = this.color;
     this.dom.style.width = this.dom.style.height = (this.radius * 2) + 'px';
     this.dom.style.borderRadius = this.radius + "px";
-    this.dom.style.position = "absolute";
+    // this.dom.style.position = "absolute";
 
     document.body.appendChild(this.dom);
 };
