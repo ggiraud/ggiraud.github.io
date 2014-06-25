@@ -1,0 +1,1 @@
+window.navigator.mozApps.install("/manifest.webapp");
