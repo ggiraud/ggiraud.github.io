@@ -1,55 +1,75 @@
+var screenWidth = window.innerWidth,
+    screenHeight = window.innerHeight;
+
+console.log(screenWidth, screenHeight);
+
+function Ball(radius, color) {
+    var speed = 20;
+    this.radius = radius;
+    this.color = color;
+    this.vx = speed * (Math.random() * 2 - 1);
+    this.vy = speed * (Math.random() * 2 - 1);
+    this.x = screenWidth / 2;
+    this.y = screenHeight / 2;
+}
+
+Ball.prototype.insert = function() {
+    this.dom = document.createElement('DIV');
+    this.dom.id = "ball";
+    this.dom.style.backgroundColor = this.color;
+    this.dom.style.width = this.dom.style.height = (this.radius * 2) + 'px';
+    this.dom.style.borderRadius = this.radius + "px";
+    this.dom.style.position = "absolute";
+
+    document.body.appendChild(this.dom);
+};
+
+Ball.prototype.move = function() {
+    this.x += this.vx;
+    this.y += this.vy;
+
+    if (this.x > (screenWidth - this.radius)) {
+        this.x = screenWidth - this.radius;
+        this.vx *= -1;
+    }
+    if (this.x < this.radius) {
+        this.x = this.radius;
+        this.vx *= -1;
+    }
+    if (this.y > (screenHeight - this.radius)) {
+        this.y = screenHeight - this.radius;
+        this.vy *= -1;
+    }
+    if (this.y < this.radius) {
+        this.y = this.radius;
+        this.vy *= -1;
+    }
+};
+
+Ball.prototype.display = function() {
+    this.dom.style.top = (this.y - this.radius) + "px";
+    this.dom.style.left = (this.x - this.radius) + "px";
+};
+
+
 document.addEventListener('DOMContentLoaded', function(e) {
     console.log("ready");
 
-    var ball = {},
-    	screenWidth = window.innerWidth,
-    	screenHeight = window.innerHeight;
+    var balls = [];
 
-    ball.radius = 10;
-    ball.vx = 10 * (Math.random() * 2 - 1);
-    ball.vy = 10 * (Math.random() * 2 - 1);
-    ball.x = screenWidth / 2;
-    ball.y = screenHeight / 2;
-    ball.color = "red";
-
-    ball.dom = document.createElement('DIV');
-    ball.dom.id = "ball";
-    ball.dom.style.backgroundColor = ball.color;
-    ball.dom.style.width = ball.dom.style.height = (ball.radius * 2) + 'px';
-    ball.dom.style.borderRadius = ball.radius + "px";
-    ball.dom.style.position = "absolute";
-
-    document.body.appendChild(ball.dom);
-
-    function animate() {
-        ball.x += ball.vx;
-        ball.y += ball.vy;
-
-        if (ball.x > (screenWidth - ball.radius)) {
-            ball.x = screenWidth - ball.radius;
-            ball.vx *= -1;
-        }
-        if (ball.x < ball.radius) {
-            ball.x = ball.radius;
-            ball.vx *= -1;
-        }
-        if (ball.y > (screenHeight - ball.radius)) {
-            ball.y = screenHeight - ball.radius;
-            ball.vy *= -1;
-        }
-        if (ball.y < ball.radius) {
-            ball.y = ball.radius;
-            ball.vy *= -1;
-        }
-
-        ball.dom.style.top = (ball.y - ball.radius) + "px";
-        ball.dom.style.left = (ball.x - ball.radius) + "px";
-
-        window.requestAnimationFrame(animate);
+    for (var i = 0; i < 100; i++) {
+        balls[i] = new Ball(10, "red");
+        balls[i].insert();
     }
 
-    window.requestAnimationFrame(function() {
-    	animate();
-    });
+    function draw() {
+        for (var i = 0; i < 100; i++) {
+            balls[i].move();
+            balls[i].display();
+        }
+        window.requestAnimationFrame(draw);
+    }
+
+    window.requestAnimationFrame(draw);
 
 }, false);
