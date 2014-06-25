@@ -1,4 +1,4 @@
-var request = window.navigator.mozApps.install("manifest.webapp");
+var request = window.navigator.mozApps.install("http://ggiraud.github.io/manifest.webapp");
 request.onsuccess = function() {
 	alert("Installation successful");
 };
