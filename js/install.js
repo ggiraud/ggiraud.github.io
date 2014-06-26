@@ -1,4 +1,4 @@
-var button = document.createElement('BUTTON'),
+var button = document.querySelector('#install'),
     origin = window.location.origin,
     request = navigator.mozApps.checkInstalled(origin + "/manifest.webapp");
 
@@ -6,16 +6,15 @@ var button = document.createElement('BUTTON'),
 request.onsuccess = function() {
     if (this.result) {
         console.log('Application is already installed');
+        button.disabled = true;
     } else {
         console.log('Application is not installed');
 
-        document.body.appendChild(button);
-		button.textContent = "Install App";
         button.addEventListener('click', function(e) {
             var request = window.navigator.mozApps.install(origin + "/manifest.webapp");
             request.onsuccess = function() {
                 alert("Installation successful");
-                document.body.removeChild(button);
+                button.disabled = true;
             };
             request.onerror = function(err) {
                 alert("Install failed, error: " + this.error.name);
