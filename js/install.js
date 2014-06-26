@@ -1,9 +1,9 @@
-var button = document.querySelector('button#install');
+var button = document.querySelector('button#install'),
+	origin = window.location.origin;
 
 button.addEventListener('click', function(e) {
     new Promise(function(resolve, reject) {
-        // var request = navigator.mozApps.checkInstalled("http://ggiraud.github.io/manifest.webapp");
-        var request = navigator.mozApps.checkInstalled("http://localhost:9001/manifest.webapp");
+        var request = navigator.mozApps.checkInstalled(origin + "/manifest.webapp");
         request.onsuccess = function() {
             if (this.result) {
                 reject(new Error('Application is already installed'));
@@ -16,8 +16,7 @@ button.addEventListener('click', function(e) {
         };
     }).then(function() {
         return new Promise(function(resolve, reject) {
-            // var request = window.navigator.mozApps.install("http://ggiraud.github.io/manifest.webapp");
-            var request = window.navigator.mozApps.install("http://localhost:9001/manifest.webapp");
+            var request = window.navigator.mozApps.install(origin + "/manifest.webapp");
             request.onsuccess = function() {
                 resolve("Installation successful");
             };
