@@ -1,8 +1,11 @@
-var request = window.navigator.mozApps.install("http://ggiraud.github.io/manifest.webapp");
-request.onsuccess = function() {
-	alert("Installation successful");
-};
+var button = document.querySelector('button#install');
 
-request.onerror = function() {
-	alert("Install failed, error: " + this.error.name);
-};
+button.addEventListener('click', function(e) {
+	var request = window.navigator.mozApps.install("http://ggiraud.github.io/manifest.webapp");
+	request.onsuccess = function() {
+		alert("Installation successful");
+	};
+	request.onerror = function() {
+		alert("Install failed, error: " + this.error.name);
+	};
+}, false);

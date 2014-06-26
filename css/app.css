@@ -1,28 +1,33 @@
 /* line 3, ../scss/app.scss */
 #canvasContainer {
+  padding: 0;
+  margin: 0;
   display: inline-block;
   background-color: #EBECED;
-  -webkit-border-radius: 480px;
-  -moz-border-radius: 480px;
-  -ms-border-radius: 480px;
-  -o-border-radius: 480px;
-  border-radius: 480px;
-  -webkit-box-shadow: inset 0px 0px 250px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: inset 0px 0px 250px rgba(0, 0, 0, 0.2);
-  box-shadow: inset 0px 0px 250px rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0px 0px 50px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: inset 0px 0px 50px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0px 0px 50px rgba(0, 0, 0, 0.2);
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
   -ms-transform: translateZ(0);
   -o-transform: translateZ(0);
   transform: translateZ(0);
 }
-/* line 9, ../scss/app.scss */
+/* line 11, ../scss/app.scss */
 #canvasContainer canvas {
-  -webkit-border-radius: 480px;
-  -moz-border-radius: 480px;
-  -ms-border-radius: 480px;
-  -o-border-radius: 480px;
-  border-radius: 480px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: inset 2px 2px 0px #aaaaaa;
+  -moz-box-shadow: inset 2px 2px 0px #aaaaaa;
+  box-shadow: inset 2px 2px 0px #aaaaaa;
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
   -ms-transform: translateZ(0);
