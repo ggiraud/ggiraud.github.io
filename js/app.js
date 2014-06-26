@@ -1,78 +1,69 @@
-var screenWidth = window.innerWidth,
-    screenHeight = window.innerHeight;
+var checkAudioContext = new Promise(function(resolve,reject) {
+	window.audioContext = (window.AudioContext || window.webkitAudioContext);
 
-console.log(screenWidth, screenHeight);
+	if (window.audioContext) {
+		resolve("web audio API is available");
+	} else {
+		reject("web audio API is unavailable");
+	}
+});
 
-function Ball(radius, color) {
-    var speed = 20;
-    this.radius = radius;
-    this.color = color;
-    this.vx = speed * (Math.random() * 2 - 1);
-    this.vy = speed * (Math.random() * 2 - 1);
-    this.x = screenWidth / 2;
-    this.y = screenHeight / 2;
+var checkGetUserMedia = new Promise(function(resolve,reject) {
+	navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia
+		|| navigator.mozGetUserMedia || navigator.msGetUserMedia);
+
+	if (navigator.getUserMedia) {
+		resolve("audio capture is available");
+	} else {
+		reject("audio capture is unavailable");
+	}
+});
+
+function onAudioCaptureSuccess(stream) {
+	var canvas = document.querySelector('canvas');
+	var drawContext = canvas.getContext('2d');
+
+	var audioContext = new window.audioContext();
+	var source = audioContext.createMediaStreamSource(stream);
+	var analyser = audioContext.createAnalyser();
+	analyser.fftSize = 128;
+	analyser.smoothingTimeConstant = 0.8;
+	source.connect(analyser);
+
+	var buffer = new Uint8Array(analyser.frequencyBinCount);
+	console.log(buffer);
+
+	function draw() {
+		var midHeight = Math.floor(canvas.height / 2);
+		analyser.getByteTimeDomainData(buffer);
+
+		drawContext.clearRect(0,0,canvas.width,canvas.height);
+
+		drawContext.strokeStyle = '#4C9ED9';
+		drawContext.lineWidth = 4;
+		drawContext.beginPath();
+		drawContext.moveTo(0, midHeight);
+		for (var i = 1; i < buffer.length; i++) {
+			var attenuation = Math.cos(i * (Math.PI * 2) / buffer.length) * -0.5 + 0.5,
+				x = i * canvas.width / buffer.length,
+				y = ((buffer[i] * canvas.height / 255) - midHeight) * attenuation + midHeight;
+
+			drawContext.lineTo(x, y);
+		}
+		drawContext.stroke();
+
+		window.requestAnimationFrame(draw);
+	}
+
+	window.requestAnimationFrame(draw);
 }
 
-Ball.prototype.insert = function() {
-    this.dom = document.createElement('DIV');
-    this.dom.className = "ball";
-    this.dom.style.backgroundColor = this.color;
-    this.dom.style.width = this.dom.style.height = (this.radius * 2) + 'px';
-    this.dom.style.borderRadius = this.radius + "px";
-    // this.dom.style.position = "absolute";
-
-    document.body.appendChild(this.dom);
-};
-
-Ball.prototype.move = function() {
-    this.x += this.vx;
-    this.y += this.vy;
-
-    if (this.x > (screenWidth - this.radius)) {
-        this.x = screenWidth - this.radius;
-        this.vx *= -1;
-    }
-    if (this.x < this.radius) {
-        this.x = this.radius;
-        this.vx *= -1;
-    }
-    if (this.y > (screenHeight - this.radius)) {
-        this.y = screenHeight - this.radius;
-        this.vy *= -1;
-    }
-    if (this.y < this.radius) {
-        this.y = this.radius;
-        this.vy *= -1;
-    }
-};
-
-Ball.prototype.display = function() {
-    this.dom.style.webkitTransform = "translateX(" + (this.x - this.radius) + "px) translateY(" + (this.y - this.radius) + "px) translateZ(0)";
-    this.dom.style.MozTransform = "translateX(" + (this.x - this.radius) + "px) translateY(" + (this.y - this.radius) + "px) translateZ(0)";
-    this.dom.style.msTransform = "translateX(" + (this.x - this.radius) + "px) translateY(" + (this.y - this.radius) + "px) translateZ(0)";
-    this.dom.style.OTransform = "translateX(" + (this.x - this.radius) + "px) translateY(" + (this.y - this.radius) + "px) translateZ(0)";
-    this.dom.style.transform = "translateX(" + (this.x - this.radius) + "px) translateY(" + (this.y - this.radius) + "px) translateZ(0)";
-};
-
-
 document.addEventListener('DOMContentLoaded', function(e) {
-    console.log("ready");
-
-    var balls = [];
-
-    for (var i = 0; i < 10; i++) {
-        balls[i] = new Ball(10, "red");
-        balls[i].insert();
-    }
-
-    function draw() {
-        for (var i = 0; i < 10; i++) {
-            balls[i].move();
-            balls[i].display();
-        }
-        window.requestAnimationFrame(draw);
-    }
-
-    window.requestAnimationFrame(draw);
-
+	Promise.all([checkAudioContext,checkGetUserMedia]).then(function() {
+		navigator.getUserMedia({audio: true}, onAudioCaptureSuccess, function(err) {
+			console.log(err);
+		});
+	}).catch(function(err) {
+		alert(err);
+	})
 }, false);
