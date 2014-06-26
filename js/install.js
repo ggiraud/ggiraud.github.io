@@ -1,36 +1,27 @@
 var button = document.querySelector('button#install'),
-    origin = window.location.origin;
+    origin = window.location.origin,
+    request = navigator.mozApps.checkInstalled(origin + "/manifest.webapp");
 
-new Promise(function(resolve, reject) {
-    var request = navigator.mozApps.checkInstalled(origin + "/manifest.webapp");
-    request.onsuccess = function() {
-        if (this.result) {
-            button.textContent = "update app";
-            resolve('Application is already installed');
-        } else {
-            button.textContent = "install app";
-            resolve('Application is not installed');
-        }
-    };
-    request.onerror = function() {
-        reject(this.error);
-    };
-}).then(function() {
+request.onsuccess = function() {
+    if (this.result) {
+        button.textContent = "update app";
+        console.log('Application is already installed');
+    } else {
+        button.textContent = "install app";
+        console.log('Application is not installed');
+    }
+
     button.addEventListener('click', function(e) {
-        new Promise(function(resolve, reject) {
-            var request = window.navigator.mozApps.install(origin + "/manifest.webapp");
-            request.onsuccess = function() {
-                resolve("Installation successful");
-            };
-            request.onerror = function(err) {
-                reject(new Error("Install failed, error: " + this.error.name));
-            };
-        }).then(function(msg) {
-            alert(msg);
-        }, function(err) {
-            alert(err.message);
-        });
+        var request = window.navigator.mozApps.install(origin + "/manifest.webapp");
+        request.onsuccess = function() {
+            alert("Installation successful");
+        };
+        request.onerror = function(err) {
+            alert("Install failed, error: " + this.error.name);
+        };
     }, false);
-}).catch(function(err) {
-	alert(err.msg);
-});
+};
+
+request.onerror = function() {
+    alert(this.error.message);
+};
