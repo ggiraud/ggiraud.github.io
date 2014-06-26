@@ -10,11 +10,12 @@ request.onsuccess = function() {
         console.log('Application is not installed');
 
         document.body.appendChild(button);
-		button.textContent = "Install App"
+		button.textContent = "Install App";
         button.addEventListener('click', function(e) {
             var request = window.navigator.mozApps.install(origin + "/manifest.webapp");
             request.onsuccess = function() {
                 alert("Installation successful");
+                document.body.removeChild(button);
             };
             request.onerror = function(err) {
                 alert("Install failed, error: " + this.error.name);
