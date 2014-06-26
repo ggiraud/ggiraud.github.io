@@ -26,7 +26,7 @@ function onAudioCaptureSuccess(stream) {
 	var audioContext = new window.audioContext();
 	var source = audioContext.createMediaStreamSource(stream);
 	var analyser = audioContext.createAnalyser();
-	analyser.fftSize = 128;
+	analyser.fftSize = 512;
 	analyser.smoothingTimeConstant = 0.8;
 	source.connect(analyser);
 
@@ -54,7 +54,6 @@ function onAudioCaptureSuccess(stream) {
 
 		window.requestAnimationFrame(draw);
 	}
-
 	window.requestAnimationFrame(draw);
 }
 
