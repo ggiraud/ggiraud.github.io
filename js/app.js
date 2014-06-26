@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
         if (window.audioContext) {
             resolve("web audio API is available");
         } else {
-            reject(Error("web audio API is unavailable");
+            reject(Error("web audio API is unavailable"));
         }
     });
 
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
         if (navigator.getUserMedia) {
             resolve("audio capture is available");
         } else {
-            reject(Error("audio capture is unavailable");
+            reject(Error("audio capture is unavailable"));
         }
     });
 
