@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function(e) {
     });
 
     // success function for getUserMedia call
-
     function onAudioCaptureSuccess(stream) {
         // create WebAudio nodes
         audioContext = new window.audioContext();
@@ -40,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function(e) {
     }
 
     // draw sound wave on canvas
-
     function draw() {
         analyser.getByteTimeDomainData(buffer);
 

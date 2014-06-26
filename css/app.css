@@ -2,7 +2,9 @@
 #canvasContainer {
   padding: 0;
   margin: 0;
-  display: inline-block;
+  display: block;
+  width: 320px;
+  height: 120px;
   background-color: #EBECED;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -18,7 +20,7 @@
   -o-transform: translateZ(0);
   transform: translateZ(0);
 }
-/* line 11, ../scss/app.scss */
+/* line 13, ../scss/app.scss */
 #canvasContainer canvas {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
