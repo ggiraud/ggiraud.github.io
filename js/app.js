@@ -68,8 +68,11 @@ document.addEventListener('DOMContentLoaded', function(e) {
         window.requestAnimationFrame(draw);
     }
 
-    Promise.all([checkAudioContext, checkGetUserMedia]).then(function(msg) {
-    	console.log(msg);
+    Promise.all([checkAudioContext, checkGetUserMedia]).then(function(msgs) {
+    	msgs.forEach(function(v,i,a) {
+    		console.log(v);
+    	});
+
         navigator.getUserMedia({
             audio: true
         }, onAudioCaptureSuccess, function(err) {
