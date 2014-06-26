@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
         if (window.audioContext) {
             resolve("web audio API is available");
         } else {
-            reject("web audio API is unavailable");
+            reject(Error("web audio API is unavailable");
         }
     });
 
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
         if (navigator.getUserMedia) {
             resolve("audio capture is available");
         } else {
-            reject("audio capture is unavailable");
+            reject(Error("audio capture is unavailable");
         }
     });
 
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
         var currentTime = Date.now(),
         	step = 1000 / 20,
         	delta = currentTime - previousTime;
-        	
+
         if (delta > step) {
             drawContext.clearRect(0, 0, canvas.width, canvas.height);
             drawContext.strokeStyle = '#4C9ED9';
@@ -68,7 +68,8 @@ document.addEventListener('DOMContentLoaded', function(e) {
         window.requestAnimationFrame(draw);
     }
 
-    Promise.all([checkAudioContext, checkGetUserMedia]).then(function() {
+    Promise.all([checkAudioContext, checkGetUserMedia]).then(function(msg) {
+    	console.log(msg);
         navigator.getUserMedia({
             audio: true
         }, onAudioCaptureSuccess, function(err) {
