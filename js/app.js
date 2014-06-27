@@ -1,6 +1,22 @@
 document.addEventListener('DOMContentLoaded', function(e) {
 
-    // Promise that checks if webAudio is available
+    ////////////////////////////
+    // VARIABLES DECLARATIONS //
+    ////////////////////////////
+    var canvas = document.querySelector('canvas'),
+        drawContext = canvas.getContext('2d'),
+        midHeight = Math.floor(canvas.height / 2),
+        audioContext, source, analyser, timeDataBuffer, frequencyBuffer, decibels,
+        sum, mean, attenuation, x, y,
+        dbDiv = document.querySelector("#decibels");
+
+    // set canvas width to fit page
+    canvas.width = document.body.clientWidth;
+    drawContext.translate(0.5, 0.5);
+
+    ///////////////////////////////
+    // WEBAUDIO CHECKING PROMISE //
+    ///////////////////////////////
     var checkAudioContext = new Promise(function(resolve, reject) {
         window.audioContext = (window.AudioContext || window.webkitAudioContext);
 
@@ -11,7 +27,9 @@ document.addEventListener('DOMContentLoaded', function(e) {
         }
     });
 
-    // Promise that checks if getUserMedia is available
+    ///////////////////////////////////
+    // GETUSERMEDIA CHECKING PROMISE //
+    ///////////////////////////////////
     var checkGetUserMedia = new Promise(function(resolve, reject) {
         navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
 
@@ -22,7 +40,10 @@ document.addEventListener('DOMContentLoaded', function(e) {
         }
     });
 
-    // success function for getUserMedia call
+    //////////////////////////////////
+    // GETUSERMEDIA SUCCESS HANDLER //
+    //////////////////////////////////
+
     function onAudioCaptureSuccess(stream) {
         // create WebAudio nodes
         audioContext = new window.audioContext();
@@ -33,43 +54,62 @@ document.addEventListener('DOMContentLoaded', function(e) {
         // connect nodes
         source.connect(analyser);
         // create time data byte buffer
-        buffer = new Uint8Array(analyser.frequencyBinCount);
+        timeDataBuffer = new Uint8Array(analyser.frequencyBinCount);
+        // create frequency byte buffer
+        frequencyBuffer = new Uint8Array(analyser.frequencyBinCount);
         // draw canvas
         window.requestAnimationFrame(draw);
     }
 
-    // draw sound wave on canvas
-    function draw() {
-        analyser.getByteTimeDomainData(buffer);
+    /////////////////////////////
+    // EVALUATE DECIBELS LEVEL //
+    /////////////////////////////
 
-        var currentTime = Date.now(),
-        	step = 1000 / 20,
-        	delta = currentTime - previousTime;
-
-        if (delta > step) {
-            drawContext.clearRect(0, 0, canvas.width, canvas.height);
-            drawContext.strokeStyle = '#4C9ED9';
-            drawContext.lineWidth = 3;
-            drawContext.beginPath();
-            drawContext.moveTo(0, midHeight);
-            for (var i = 1; i < buffer.length; i++) {
-                var attenuation = Math.cos(i * (Math.PI * 2) / buffer.length) * -0.5 + 0.5,
-                    x = i * canvas.width / buffer.length,
-                    y = ((buffer[i] * canvas.height / 255) - midHeight) * attenuation + midHeight;
-
-                drawContext.lineTo(x, y);
-            }
-            drawContext.stroke();
-            previousTime = currentTime;
+    function getDB() {
+        sum = 0;
+        analyser.getByteFrequencyData(frequencyBuffer);
+        for (var i = 0; i < analyser.frequencyBinCount; i++) {
+            sum += frequencyBuffer[i];
         }
+        mean = sum / analyser.frequencyBinCount;
+        decibels = Math.round((mean / 255) * (analyser.maxDecibels - analyser.minDecibels) + analyser.minDecibels);
+        dbDiv.textContent = decibels + "dB";
+    }
+
+    ///////////////////////////////
+    // DRAW SOUND WAVE ON CANVAS //
+    ///////////////////////////////
+
+    function draw() {
+        analyser.getByteTimeDomainData(timeDataBuffer);
+
+        drawContext.clearRect(0, 0, canvas.width, canvas.height);
+        drawContext.strokeStyle = '#4C9ED9';
+        drawContext.lineWidth = 3;
+        drawContext.beginPath();
+        drawContext.moveTo(0, midHeight);
+        for (var i = 1; i < timeDataBuffer.length; i++) {
+            attenuation = Math.cos(i * (Math.PI * 2) / timeDataBuffer.length) * -0.5 + 0.5;
+            x = i * canvas.width / timeDataBuffer.length;
+            y = ((timeDataBuffer[i] * canvas.height / 255) - midHeight) * attenuation + midHeight;
+
+            drawContext.lineTo(x, y);
+        }
+        drawContext.stroke();
+
+        getDB();
 
         window.requestAnimationFrame(draw);
     }
 
+    ///////////////////////////
+    // AUDIO CAPTURE PROMISE //
+    ///////////////////////////
     Promise.all([checkAudioContext, checkGetUserMedia]).then(function(msgs) {
-    	msgs.forEach(function(v,i,a) {
-    		console.log(v);
-    	});
+        // output log messages
+        msgs.forEach(function(v, i, a) {
+            console.log(v);
+        });
 
         navigator.getUserMedia({
             audio: true
@@ -79,12 +119,6 @@ document.addEventListener('DOMContentLoaded', function(e) {
     }).
     catch (function(err) {
         alert(err);
-    })
-
-    var canvas = document.querySelector('canvas'),
-        drawContext = canvas.getContext('2d'),
-        midHeight = Math.floor(canvas.height / 2),
-        audioContext, source, analyser, buffer,
-        previousTime = Date.now();
+    });
 
 }, false);
