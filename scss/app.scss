@@ -1,0 +1,75 @@
+@import "compass";
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#tags {
+    display: flex;
+    @include user-select(none);
+    flex-flow: row wrap;
+    .tag {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        border: 1px solid black;
+        @include border-radius(5px);
+        margin-right: 2px;
+        margin-bottom: 2px;
+        padding: 2px;
+        i.fa-lock {
+        	color: white;
+        }
+        button {
+        	border : none;
+            cursor: pointer;
+            // padding: 0;
+        	@include background(none);
+        }
+        .count {
+            color: white;
+            background-color: black;
+            padding: 2px;
+            @include border-radius(5px);
+        }
+    }
+    .root {
+        background-color: red;
+    }
+    .match {
+        background-color: green;
+    }
+}
+
+footer {
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+}
+
+#search {
+    display: flex;
+    flex-flow: row nowrap;
+    @include box-sizing(border-box);
+    width: 100%;
+    border-top: 1px solid black;
+    margin-top: 2px;
+    padding: 2px;
+    label {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        input {
+            flex-grow: 1;
+        }
+        span {
+        	flex-shrink: 0;
+        }
+    }
+    button {
+    	flex-shrink: 0;
+    }
+}

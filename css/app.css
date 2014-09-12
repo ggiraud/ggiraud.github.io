@@ -1,0 +1,98 @@
+/* line 3, ../scss/app.scss */
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* line 10, ../scss/app.scss */
+#tags {
+  display: flex;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  flex-flow: row wrap;
+}
+/* line 14, ../scss/app.scss */
+#tags .tag {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  border: 1px solid black;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  margin-right: 2px;
+  margin-bottom: 2px;
+  padding: 2px;
+}
+/* line 23, ../scss/app.scss */
+#tags .tag i.fa-lock {
+  color: white;
+}
+/* line 26, ../scss/app.scss */
+#tags .tag button {
+  border: none;
+  cursor: pointer;
+  background: none;
+}
+/* line 32, ../scss/app.scss */
+#tags .tag .count {
+  color: white;
+  background-color: black;
+  padding: 2px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+/* line 39, ../scss/app.scss */
+#tags .root {
+  background-color: red;
+}
+/* line 42, ../scss/app.scss */
+#tags .match {
+  background-color: green;
+}
+
+/* line 47, ../scss/app.scss */
+footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+/* line 53, ../scss/app.scss */
+#search {
+  display: flex;
+  flex-flow: row nowrap;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  border-top: 1px solid black;
+  margin-top: 2px;
+  padding: 2px;
+}
+/* line 61, ../scss/app.scss */
+#search label {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+/* line 65, ../scss/app.scss */
+#search label input {
+  flex-grow: 1;
+}
+/* line 68, ../scss/app.scss */
+#search label span {
+  flex-shrink: 0;
+}
+/* line 72, ../scss/app.scss */
+#search button {
+  flex-shrink: 0;
+}

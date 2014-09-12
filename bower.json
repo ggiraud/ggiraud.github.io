@@ -1,0 +1,27 @@
+{
+  "name": "snippets_01",
+  "version": "0.0.0",
+  "authors": [
+    "ggiraud <ggiraud1984@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "restyle": "~0.2.2",
+    "requirejs": "~2.1.14",
+    "underscore": "~1.7.0",
+    "font-awesome": "~4.2.0",
+    "ractive": "~0.5.6",
+    "requirejs-ractive": "~0.1.6",
+    "localforage": "~0.9.2",
+    "velocity": "~1.0.0",
+    "bacon": "~0.7.22",
+    "es6-promise": "~1.0.0"
+  }
+}
