@@ -27,5 +27,12 @@ require.config({
 });
 
 require(['search/search', 'git/git'], function(search, git) {
+    var button = document.createElement('BUTTON');
+    button.textContent = "github";
+
+    button.onclick = function(e) {
+        git.authorize();
+    };
+    
     // git.authorize();
 });
