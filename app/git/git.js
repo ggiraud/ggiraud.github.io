@@ -30,7 +30,7 @@ define(['es6-promise'], function(Promise) {
 
     git.authorize = function() {
         var that = this;
-        return get('https://github.com/login/oauth/authorize?client_id=' + that.client_id)
+        return get('https://github.com/login/oauth/authorize?client_id=' + that.client_id + "&redirect_uri=" + encodeURIComponent("http://ggiraud.github.io"));
             .then(function(res) {
                 console.log(res);
             });
