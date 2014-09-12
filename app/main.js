@@ -43,7 +43,9 @@ require(['search/search', 'hello'], function(search, hello) {
     });
 
     button.onclick = function(e) {
-        hello('github').login();
+        hello('github').login().then(function() {
+            console.log(hello('github').getAuthResponse());
+        });
     };
 
 });
