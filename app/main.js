@@ -42,6 +42,10 @@ require(['search/search', 'hello'], function(search, hello) {
         redirect_uri: "http://ggiraud.github.io"
     });
 
+    hello.on('auth.login', function(auth) {
+        console.log(auth);
+    });
+
     button.onclick = function(e) {
         hello('github').login().then(function() {
             console.log(hello('github').getAuthResponse());
