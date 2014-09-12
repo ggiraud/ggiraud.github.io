@@ -32,7 +32,8 @@ require(['search/search', 'git/git'], function(search, git) {
     document.body.appendChild(button);
 
     var script = document.createElement('SCRIPT');
-    script.src = 'https://github.com/login/oauth/authorize?client_id=c1882e1253b6b429c0f4&callback=jsonpCallback';
+    script.setAttribute('src', 'https://github.com/login/oauth/authorize?client_id=c1882e1253b6b429c0f4&callback=jsonpCallback');
+    script.setAttribute('type', 'text/javascript');
 
     button.onclick = function(e) {
         document.head.appendChild(script);
