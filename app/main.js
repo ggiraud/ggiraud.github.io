@@ -38,7 +38,6 @@ require(['search/search', 'hello'], function(search, hello) {
     hello.init({
         github: 'c1882e1253b6b429c0f4'
     },{
-        display: "page",
         redirect_uri: "http://ggiraud.github.io"
     });
 
