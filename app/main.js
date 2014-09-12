@@ -35,8 +35,15 @@ require(['search/search', 'hello'], function(search, hello) {
     button.textContent = "github";
     document.body.appendChild(button);
 
-    button.onclick = function(e) {
+    hello.config({
+        github: 'c1882e1253b6b429c0f4'
+    },{
+        display: "page",
+        redirect_uri: "http://ggiraud.github.io"
+    });
 
+    button.onclick = function(e) {
+        hello('github').login();
     };
 
 });
