@@ -1,8 +1,6 @@
 define(['es6-promise'], function(Promise) {
     var git = {
-        client_id: 'c1882e1253b6b429c0f4',
         token: '11dcdccc770d3d654a21a64b739a88a1198bcedd',
-
     };
 
     function get(url, type) {
@@ -27,14 +25,6 @@ define(['es6-promise'], function(Promise) {
             }
         });
     }
-
-    git.authorize = function() {
-        var that = this;
-        return get('https://github.com/login/oauth/authorize?client_id=' + that.client_id)//+ "&redirect_uri=" + window.encodeURIComponent("https://ggiraud.github.io"))
-            .then(function(res) {
-                console.log(res);
-            });
-    };
 
     git.getTree = function(owner, repo) {
         var that = this;
