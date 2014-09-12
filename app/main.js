@@ -9,7 +9,7 @@ require.config({
         "localforage": "/bower_components/localforage/dist/localforage.min",
         "restyle": "/bower_components/restyle/build/restyle",
         "underscore": '/bower_components/underscore/underscore-min',
-        "hello": '/bower_components/hello/dist/hello.min'
+        "hello": '/bower_components/hello/dist/hello.all.min'
     },
     shim: {
         "hello": {
@@ -36,17 +36,13 @@ require(['search/search', 'hello'], function(search, hello) {
     button.textContent = 'github';
 
     button.addEventListener('click', function(e) {
-        console.log('connect to github...');
-        hello('github').login();
-    }, false);
-
-    hello.on('auth.login', function(auth) {
-        // call user information, for the given network
-        hello(auth.network).api('/me').then(function(r) {
-            // Inject it into the container
-            console.log(auth.network, r);
+        hello.login('github', {
+            display: "page",
+            redirect_uri: "http://ggiraud.github.io/index.html"
+        }).then(function() {
+            console.log('connected!!!');
         });
-    });
+    }, false);
 
     hello.init({
         github: 'c1882e1253b6b429c0f4',
