@@ -37,7 +37,7 @@ require(['search/search', 'hello'], function(search, hello) {
 
     button.addEventListener('click', function(e) {
         console.log('connect to github...');
-        hello('github').login();
+        console.log(hello('github').login());
         console.log(hello('github').getAuthResponse());
     }, false);
 });
