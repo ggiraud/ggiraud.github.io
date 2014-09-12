@@ -1,6 +1,6 @@
 require.config({
     paths: {
-        "hello": "/bower_components/hello/dist/hello.all.js",
+        "hello": "/bower_components/hello/dist/hello.all",
         "es6-promise": "/bower_components/es6-promise/promise.min",
         "jquery": "/bower_components/jquery/dist/jquery.min",
         "bacon": "/bower_components/bacon/dist/Bacon.min",
