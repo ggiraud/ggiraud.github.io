@@ -37,7 +37,18 @@ require(['search/search', 'hello'], function(search, hello) {
 
     button.addEventListener('click', function(e) {
         console.log('connect to github...');
-        console.log(hello('github').login());
-        console.log(hello('github').getAuthResponse());
+        hello('github').login();
     }, false);
+
+    hello.on('auth.login', function(auth) {
+        // call user information, for the given network
+        hello(auth.network).api('/me').then(function(r) {
+            // Inject it into the container
+            console.log(auth.network, r);
+        });
+    });
+
+    hello.init({
+        github: 'c1882e1253b6b429c0f4',
+    });
 });
