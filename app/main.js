@@ -35,7 +35,7 @@ require(['search/search', 'hello'], function(search, hello) {
     button.textContent = "github";
     document.body.appendChild(button);
 
-    hello.config({
+    hello.init({
         github: 'c1882e1253b6b429c0f4'
     },{
         display: "page",
